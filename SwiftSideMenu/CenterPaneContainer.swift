@@ -45,12 +45,12 @@ class CenterPaneContainer: PaneContainer, UIGestureRecognizerDelegate {
     func showSidePane(position: SideMenu.Position) {
         transitionInProgress = true
         showShadow()
-        visibleContainer = position == .Left ? leftSideContainer : rightSideContainer
+        if visibleContainer == nil {
+            visibleContainer = position == .Left ? leftSideContainer : rightSideContainer
+            prepareToShow()
+        }
+
         guard let visibleContainer = visibleContainer else { return }
-        
-        superview?.bringSubviewToFront(visibleContainer)
-        superview?.bringSubviewToFront(self)
-        
         moveTo(revealPosition(position), duration: durationToShow() ) {
             self.transitionInProgress = false
             self.enableTapRecognizer(self, action: "hideSidePane")
@@ -61,7 +61,7 @@ class CenterPaneContainer: PaneContainer, UIGestureRecognizerDelegate {
     
     func hideSidePane() {
         guard let visibleContainer = visibleContainer else { return }
-        
+        delegate?.willHideSidePane(visibleContainer)
         transitionInProgress = true
         returnToOriginal(durationToHide() ) {
             self.hideShadow()
@@ -84,8 +84,8 @@ class CenterPaneContainer: PaneContainer, UIGestureRecognizerDelegate {
         switch(recognizer.state) {
         case .Began:
             guard visibleContainer == nil else { return }
-            showShadow()
             visibleContainer = leftToRight ? leftSideContainer : rightSideContainer
+            prepareToShow()
         case .Changed:
             guard let visibleContainer = visibleContainer else { return }
             let translation = recognizer.translationInView(superview).x
@@ -110,6 +110,14 @@ class CenterPaneContainer: PaneContainer, UIGestureRecognizerDelegate {
                 hideSidePane()
             }
         }
+    }
+    
+    private func prepareToShow() {
+        showShadow()
+        guard let visibleContainer = visibleContainer else { return }
+        superview?.bringSubviewToFront(visibleContainer)
+        superview?.bringSubviewToFront(self)
+        delegate?.willShowSidePane(visibleContainer)
     }
     
     private func shouldOpen(visibleContainer: SidePaneContainer, swipeLeftToRight: Bool) -> Bool {

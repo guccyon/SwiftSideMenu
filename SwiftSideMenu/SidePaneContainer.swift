@@ -9,7 +9,9 @@
 import UIKit
 
 protocol SidePaneContainerDelegate: class {
+    func willShowSidePane(sidePane: SidePaneContainer)
     func didShowSidePane(sidePane: SidePaneContainer)
+    func willHideSidePane(sidePane: SidePaneContainer)
     func didHideSidePane(sidePane: SidePaneContainer)
 }
 
@@ -73,7 +75,7 @@ class SidePaneContainer: PaneContainer, UIGestureRecognizerDelegate {
 
     func hide() {
         guard !hidden else { return }
-        
+        delegate?.willHideSidePane(self)
         transitionInProgress = true
         UIView.animateWithDuration(durationToHide(),
             animations: {
@@ -136,8 +138,10 @@ class SidePaneContainer: PaneContainer, UIGestureRecognizerDelegate {
     }
     
     private func prepareToShow() {
+        guard hidden else { return }
         hidden = false
         overlay?.hidden = false
+        delegate?.willShowSidePane(self)
     }
     
     private func updateFrame() {

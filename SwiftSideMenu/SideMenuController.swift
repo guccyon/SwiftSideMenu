@@ -20,6 +20,13 @@ public struct SideMenu {
     }
 }
 
+@objc public protocol SideMenuControllerDelegate {
+    optional func willShowSideMenu(sideMenuController:SideMenuController)
+    optional func willHideSidePane(sideMenuController:SideMenuController)
+    optional func didShowSideMenu(sideMenuController:SideMenuController)
+    optional func didHideSidePane(sideMenuController:SideMenuController)
+}
+
 public class SideMenuController: UIViewController {
     // MARK: - Customizable settings
     public static var displayOrder: SideMenu.DisplayOrder = .Back
@@ -32,6 +39,7 @@ public class SideMenuController: UIViewController {
     public var identifierForLeft: String?
     public var identifierForRight: String?
 
+    weak public var delegate: SideMenuControllerDelegate?
     
     public var centerViewController: UIViewController? {
         didSet { didSetCenterController() }
@@ -174,18 +182,30 @@ public class SideMenuController: UIViewController {
 }
 
 extension SideMenuController: SidePaneContainerDelegate {
+    func willShowSidePane(sidePane: SidePaneContainer) {
+        delegate?.willShowSideMenu?(self)
+    }
+    
     func didShowSidePane(sideContainer: SidePaneContainer) {
         centerViewController?.view.userInteractionEnabled = false
         if !landscapeOrientation {
             statusBarView.alpha = 1
         }
+        
+        delegate?.didShowSideMenu?(self)
     }
     
+    func willHideSidePane(sidePane: SidePaneContainer) {
+        delegate?.willHideSidePane?(self)
+    }
+
     func didHideSidePane(sideContainer: SidePaneContainer) {
         centerViewController?.view.userInteractionEnabled = true
         if !landscapeOrientation {
             statusBarView.alpha = 0
         }
+        
+        delegate?.didHideSidePane?(self)
     }
 }
 

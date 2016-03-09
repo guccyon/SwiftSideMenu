@@ -9,11 +9,12 @@
 import UIKit
 import SwiftSideMenu
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, SideMenuControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        sideMenuController()?.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,4 +30,22 @@ class ViewController: UIViewController {
     @IBAction func toggleRight(sender: UIBarButtonItem) {
         sideMenuController()?.toggleSideMenu(.Right)
     }
+    
+
+    func willShowSideMenu(sideMenuController:SideMenuController) {
+        print("willShowSideMenu")
+    }
+    
+    func willHideSidePane(sideMenuController:SideMenuController) {
+        print("willHideSideMenu")
+    }
+    
+    func didShowSideMenu(sideMenuController:SideMenuController) {
+        print("didShowSideMenu")
+    }
+    
+    func didHideSidePane(sideMenuController:SideMenuController) {
+        print("didHideSideMenu")
+    }
+
 }
