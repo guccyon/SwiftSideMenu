@@ -182,30 +182,41 @@ public class SideMenuController: UIViewController {
 }
 
 extension SideMenuController: SidePaneContainerDelegate {
+    func visibleController(position: SideMenu.Position) -> UIViewController {
+        if position == .Left {
+            return leftSideViewController!
+        } else {
+            return rightSideViewController!
+        }
+    }
     func willShowSidePane(sidePane: SidePaneContainer) {
         delegate?.willShowSideMenu?(self)
+        visibleController(sidePane.position).viewWillAppear(true)
     }
     
-    func didShowSidePane(sideContainer: SidePaneContainer) {
+    func didShowSidePane(sidePane: SidePaneContainer) {
         centerViewController?.view.userInteractionEnabled = false
         if !landscapeOrientation {
             statusBarView.alpha = 1
         }
         
         delegate?.didShowSideMenu?(self)
+        visibleController(sidePane.position).viewDidAppear(true)
     }
     
     func willHideSidePane(sidePane: SidePaneContainer) {
         delegate?.willHideSidePane?(self)
+        visibleController(sidePane.position).viewWillDisappear(true)
     }
 
-    func didHideSidePane(sideContainer: SidePaneContainer) {
+    func didHideSidePane(sidePane: SidePaneContainer) {
         centerViewController?.view.userInteractionEnabled = true
         if !landscapeOrientation {
             statusBarView.alpha = 0
         }
         
         delegate?.didHideSidePane?(self)
+        visibleController(sidePane.position).viewDidDisappear(true)
     }
 }
 

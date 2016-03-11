@@ -42,7 +42,7 @@ class CenterPaneContainer: PaneContainer, UIGestureRecognizerDelegate {
         sidePaneVisible ? hideSidePane() : showSidePane(position)
     }
     
-    func showSidePane(position: SideMenu.Position) {
+    func showSidePane(position: SideMenu.Position, skipDelegate: Bool = false) {
         transitionInProgress = true
         showShadow()
         if visibleContainer == nil {
@@ -55,6 +55,7 @@ class CenterPaneContainer: PaneContainer, UIGestureRecognizerDelegate {
             self.transitionInProgress = false
             self.enableTapRecognizer(self, action: "hideSidePane")
             self.sidePaneVisible = true
+            if skipDelegate { return }
             self.delegate?.didShowSidePane(visibleContainer)
         }
     }
@@ -105,7 +106,7 @@ class CenterPaneContainer: PaneContainer, UIGestureRecognizerDelegate {
         default:
             guard let visibleContainer = visibleContainer else { return }
             if shouldOpen(visibleContainer, swipeLeftToRight: leftToRight) {
-                showSidePane(visibleContainer.position)
+                showSidePane(visibleContainer.position, skipDelegate: sidePaneVisible)
             } else {
                 hideSidePane()
             }

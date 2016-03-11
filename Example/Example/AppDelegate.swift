@@ -17,6 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        SideMenuController.displayOrder = SideMenu.DisplayOrder.Back
+        SideMenuController.revealPercentage = 0.7
+        SideMenuController.revealAnimationDuration = 0.3
+        SideMenuController.hideAnimationDuration = 0.2
+
         return true
     }
 
