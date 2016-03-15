@@ -35,25 +35,24 @@ github "guccyon/SwiftSideMenu"
     You can embed the MainView in NavigationController.
 
     2-2. Select the connected segue, then set value ```Class = SideMenuSegue ```, ```Identifier = CenterPane``` from property editor.
-    ![_](Images/2-2.ConnectSegueFromSideMenuControllerToMainView.png)
+    ![_](Images/2-2.ConnectSegueFromSideMenuControllerToMainView.png)
 
 3. prepare SideMenu
     3-1. Add SideView on storyboard, then connect custome segue from SideMenuController to it.
-    ![_](Images/3-1.ConnectSegueFromSideMenuControllerToSideView.png)
+    ![_](Images/3-1.ConnectSegueFromSideMenuControllerToSideView.png)
 
     3-2. Select the connected segue, then set value ```Class = SideMenuSegue ```, ```Identifier = LeftSidePane``` from property editor.
     you can set Identifier value as you like. this value will be used on next step.
-    ![_](Images/3-2.ConnectSegueFromSideMenuControllerToSideView.png)
+    ![_](Images/3-2.ConnectSegueFromSideMenuControllerToSideView.png)
 
     3-3. configure User Defined Runtime Attribute to SideMenuController
-```
-Key = identifierForLeft
-Type = String
-Value = $(value set on 3-2)
-```
+    ```
+    Key = identifierForLeft
+    Type = String
+    Value = $(value set on 3-2)
+    ```
     (※For right side, it must be ```Key = identifierForRight```)
-    ![_](Images/3-3.ConnectSegueFromSideMenuControllerToSideView.png)
-
+    ![_](Images/3-3.ConnectSegueFromSideMenuControllerToSideView.png)
     If you set values for both of left and right, it will show menu on both side.
 
 
@@ -123,7 +122,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 ```
 |Property|Description| Default |
-|------|-----|
+|------|-----|-----|
 | static displayOrder:SideMenu.DisplayOrder | overlap order | .Back |
 | static revealPercentage:CGFloat | size rate of SideMenu (0.0 - 1.0) | 0.7 |
 | static revealAnimationDuration:NSTimeInterval | animation duration to show SideMenu | 0.3 |
