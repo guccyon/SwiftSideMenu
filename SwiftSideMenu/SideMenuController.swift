@@ -101,8 +101,8 @@ public class SideMenuController: UIViewController {
     func addController(controller: UIViewController, identifier: String) {
         switch(identifier) {
         case identifierForCenter: centerViewController    = controller
-        case identifierForLeft! : leftSideViewController  = controller
-        case identifierForRight!: rightSideViewController = controller
+        case let val where val == identifierForLeft: leftSideViewController  = controller
+        case let val where val == identifierForRight: rightSideViewController = controller
         default: break
         }
     }
