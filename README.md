@@ -5,7 +5,15 @@ SwiftSideMenu
 SwiftSideMenu is a UI library for iOS in swift.
 - configurable on Interface Builder
 
-![_](Images/screencast.gif)
+DisplayOrder Back
+
+<img src="Images/screencast.gif" width="400">
+
+
+DisplayOrder Front
+
+<img src="Images/screencast_front.gif" width="400">
+
 
 ## Requirements
 - Swift 2.1
@@ -28,9 +36,9 @@ github "guccyon/SwiftSideMenu"
 1. add SideMenuController on your storyboard
 ![_](Images/1.PlaceSideMenuController.png)
 
-2. prepare MaivView
+2. prepare MainView
 
-    2-1. Add MaivView on storyboard, then connect custom segue from SideMenuController to it.
+    2-1. Add MainView on storyboard, then connect custom segue from SideMenuController to it.
     ![_](Images/2-1.ConnectSegueFromSideMenuControllerToMainView.png)
     You can embed the MainView in NavigationController.
 
@@ -38,6 +46,7 @@ github "guccyon/SwiftSideMenu"
     ![_](Images/2-2.ConnectSegueFromSideMenuControllerToMainView.png)
 
 3. prepare SideMenu
+
     3-1. Add SideView on storyboard, then connect custome segue from SideMenuController to it.
     ![_](Images/3-1.ConnectSegueFromSideMenuControllerToSideView.png)
 
