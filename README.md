@@ -21,14 +21,22 @@ DisplayOrder Front
 
 ## Installation
 
+### Cocoapods
+
+You can use [Cocoapods](https://cocoapods.org) to install ```SwiftSideMenu``` by adding it to you r ```Podfile```:
+
+```
+use_frameworks!
+pod 'SwiftSideMenu', :git => 'https://github.com/guccyon/SwiftSideMenu.git'
+```
+
 ### Carthage
 
-If you are using [Carthage](https://github.com/Carthage/Carthage). you just add a line for SwiftSideMenu in to your Cartfile:
+If you are using [Carthage](https://github.com/Carthage/Carthage). you just add a line for ```SwiftSideMenu``` in to your ```Cartfile```:
 
 ```
 github "guccyon/SwiftSideMenu"
 ```
-
 
 
 ## Usage
