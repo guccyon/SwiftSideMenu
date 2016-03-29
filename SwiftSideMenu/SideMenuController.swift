@@ -167,7 +167,7 @@ public class SideMenuController: UIViewController {
             centerContainer.enablePanGesture()
             view.sendSubviewToBack(sideContainer)
         } else {
-            centerContainer.enableSwipeRecognizer(position.flickDirectionToShow, target: sideContainer, action: "show")
+            centerContainer.enableSwipeRecognizer(position.flickDirectionToShow, target: sideContainer, action: #selector(UIAlertView.show))
             sideContainer.enablePanGesture()
             view.bringSubviewToFront(sideContainer)
         }

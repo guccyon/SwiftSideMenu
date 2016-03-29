@@ -53,7 +53,7 @@ class CenterPaneContainer: PaneContainer, UIGestureRecognizerDelegate {
         guard let visibleContainer = visibleContainer else { return }
         moveTo(revealPosition(position), duration: durationToShow() ) {
             self.transitionInProgress = false
-            self.enableTapRecognizer(self, action: "hideSidePane")
+            self.enableTapRecognizer(self, action: #selector(CenterPaneContainer.hideSidePane))
             self.sidePaneVisible = true
             if skipDelegate { return }
             self.delegate?.didShowSidePane(visibleContainer)
@@ -75,7 +75,7 @@ class CenterPaneContainer: PaneContainer, UIGestureRecognizerDelegate {
     }
     
     func enablePanGesture() {
-        enablePanRecognizer(self, action: "handlePanGesture:")
+        enablePanRecognizer(self, action: #selector(CenterPaneContainer.handlePanGesture(_:)))
     }
 
     func handlePanGesture(recognizer : UIPanGestureRecognizer){

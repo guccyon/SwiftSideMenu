@@ -66,8 +66,8 @@ class SidePaneContainer: PaneContainer, UIGestureRecognizerDelegate {
                 self.overlay?.show()
             },
             completion: {_ in
-                self.overlay?.enableTapRecognizer(self, action: "hide")
-                self.overlay?.enableSwipeRecognizer(self.position.flickDirectionToHide, target: self, action: "hide")
+                self.overlay?.enableTapRecognizer(self, action: #selector(SidePaneContainer.hide))
+                self.overlay?.enableSwipeRecognizer(self.position.flickDirectionToHide, target: self, action: #selector(SidePaneContainer.hide))
                 self.transitionInProgress = false
                 self.delegate?.didShowSidePane(self)
         })
@@ -93,7 +93,7 @@ class SidePaneContainer: PaneContainer, UIGestureRecognizerDelegate {
     }
 
     func enablePanGesture() {
-        enablePanRecognizer(self, action: "handlePanGesture:")
+        enablePanRecognizer(self, action: #selector(SidePaneContainer.handlePanGesture(_:)))
     }
     
     func handlePanGesture(recognizer : UIPanGestureRecognizer){
