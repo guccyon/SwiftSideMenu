@@ -33,10 +33,16 @@ class ViewController: UIViewController, SideMenuControllerDelegate {
     
 
     func willShowSideMenu(sideMenuController:SideMenuController) {
+        UIView.animateWithDuration(0.3) {
+            sideMenuController.shouldBeHidingStatusBar = true
+        }        
         print("willShowSideMenu")
     }
     
     func willHideSidePane(sideMenuController:SideMenuController) {
+        UIView.animateWithDuration(0.3) {
+            sideMenuController.shouldBeHidingStatusBar = false
+        }
         print("willHideSideMenu")
     }
     

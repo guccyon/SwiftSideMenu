@@ -33,6 +33,7 @@ public class SideMenuController: UIViewController {
     public static var revealPercentage: CGFloat = 0.7
     public static var revealAnimationDuration: NSTimeInterval = 0.3
     public static var hideAnimationDuration: NSTimeInterval = 0.2
+    public static var statusBarAnimationStyle:UIStatusBarAnimation = .Slide
 
     // MARK: - Set from IB
     public var identifierForCenter: String = "CenterPane"
@@ -50,6 +51,9 @@ public class SideMenuController: UIViewController {
     public var rightSideViewController: UIViewController? {
         didSet { didSetSideController(rightSideViewController, position:.Right) }
     }
+    public var shouldBeHidingStatusBar = false {
+        didSet { setNeedsStatusBarAppearanceUpdate() }
+    }
     private var screenSize = UIScreen.mainScreen().bounds.size
     private var displayOrder: SideMenu.DisplayOrder = SideMenuController.displayOrder
     private var centerContainer: CenterPaneContainer!
@@ -62,6 +66,14 @@ public class SideMenuController: UIViewController {
         super.viewDidLoad()
         setup()
         addControllersFromSegue()
+    }
+    
+    public override func prefersStatusBarHidden() -> Bool {
+        return shouldBeHidingStatusBar
+    }
+    
+    public override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return SideMenuController.statusBarAnimationStyle
     }
     
     public func toggleSideMenu(position: SideMenu.Position = .Left) {
